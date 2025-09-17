@@ -7,7 +7,7 @@ import Silder from '@/layout/Silder.vue'
 <template>
   <div class="common-layout" >
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="210px">
         <Silder></Silder>
       </el-aside>
       <el-container>
