@@ -1,0 +1,60 @@
+{
+  // 编译选项配置（所有子配置的基础规则，子配置可覆盖）
+  "compilerOptions": {
+    // 目标 JavaScript 版本：编译后生成 ES6 语法的代码
+    "target": "ES6",
+    // 模块系统：使用 ES 模块（import/export）
+    "module": "ESNext",
+    // 模块解析策略：Node.js 风格的模块解析
+    "moduleResolution": "Node",
+    // 允许默认导入非默认导出的模块（增强兼容性）
+    "allowSyntheticDefaultImports": true,
+    // 启用严格模式：开启所有严格类型检查选项（推荐）
+    "strict": true,
+    // 不生成输出文件
+    "noEmit": false,
+    // 跳过库文件的类型检查（加速编译）
+    "skipLibCheck": true,
+    // 允许不同模块系统之间的相互导入（如 CommonJS 和 ES 模块）
+    "esModuleInterop": true,
+    // 禁止隐式的 any 类型（严格模式的一部分，显式开启更清晰）
+    //    "noImplicitAny": true,
+    // 检查函数参数是否被正确使用（避免未使用的参数）
+    "noUnusedParameters": true,
+    // 检查未使用的局部变量（减少代码冗余）
+    "noUnusedLocals": true,
+    // 禁止在 return 语句后有不可达代码（避免逻辑错误）
+    "noUnreachableCode": true,
+    // 强制使用一致的换行符（Windows 为 CRLF，Linux/macOS 为 LF）
+    "newLine": "lf",
+    // 指定输出文件的编码格式
+    "charset": "utf8",
+    // 生成相应的 .d.ts 类型声明文件（方便其他项目引用）
+    "declaration": true,
+    // 允许在 .tsx 文件中使用 JSX 语法（如果项目使用 React 等）
+    "jsx": "preserve",
+    // 基础类型定义库（根据 target 自动包含，这里显式列出常用库）
+    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+  },
+
+  // 要排除的文件/目录（不进行类型检查）
+  "exclude": [
+    "node_modules", // 第三方依赖
+    "dist", // 构建输出目录
+    "**/*.spec.ts", // 测试文件（通常由 vitest 单独处理）
+    "**/*.test.ts"
+  ],
+
+  // 引用的子配置文件（用于多项目结构，如 Vue 项目的 app/node/vitest 分离）
+  "references": [
+    {
+      "path": "./tsconfig.node.json" //  Node.js 环境配置（如 Vite 配置文件）
+    },
+    {
+      "path": "./tsconfig.app.json"  // 应用代码配置（业务逻辑）
+    },
+    {
+      "path": "./tsconfig.vitest.json" // 测试环境配置（vitest 测试用例）
+    }
+  ]
+}
