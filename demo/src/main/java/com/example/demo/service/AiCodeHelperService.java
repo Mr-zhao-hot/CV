@@ -12,6 +12,7 @@ import java.util.List;
 public interface AiCodeHelperService {
 
 
+    @SystemMessage("请根据该简历出面试题进行对话")
     Flux<String> chat(String message);
 
 
