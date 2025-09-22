@@ -1,9 +1,16 @@
 package com.example.demo.service;
 
 import com.example.demo.model.persist.param.ResultResumesParam.ResumesData;
+import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
+import dev.langchain4j.service.UserMessage;
+import reactor.core.publisher.Flux;
 
 public interface AiCodeHelperService {
+
+    // Ai对话
+    @SystemMessage("根据简历的内容帮我分析简历")
+    Flux<String> chatMessage(@MemoryId Long id , @UserMessage  String message);
 
 
     // 改为返回结构化的Resume对象
@@ -36,7 +43,7 @@ public interface AiCodeHelperService {
             2. 若某字段无数据，需填“待填写”或默认值（如 yearsExperience 填 0），不允许留空或 null；
             3. 仅返回结构化的 `ResumesData` 对象数据，不添加任何额外解释文本。
             """)
-    String chat(String message);
+    String chat(@MemoryId Long id , @UserMessage  String message);
 
     // 添加专门的简历解析方法
     ResumesData parseResume(String pdfContent);

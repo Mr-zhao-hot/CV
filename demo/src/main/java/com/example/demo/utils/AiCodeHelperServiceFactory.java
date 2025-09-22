@@ -2,7 +2,6 @@ package com.example.demo.utils;
 
 
 import com.example.demo.service.AiCodeHelperService;
-import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.chat.StreamingChatModel;
@@ -37,12 +36,10 @@ public class AiCodeHelperServiceFactory {
 
     @Bean
     public AiCodeHelperService aiCodeHelper() {
-        ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(10);
         return AiServices.builder(AiCodeHelperService.class)
                 .chatModel(qwenchatModel)
-//                .chatMemoryProvider(memoryId -> MessageWindowChatMemory.withMaxMessages(10)) // 动态记忆工厂
                 .streamingChatModel(streamingChatModel)
-//                .chatMemory(chatMemory)
+                .chatMemoryProvider(memoryId -> MessageWindowChatMemory.withMaxMessages(10))
                 .build();
     }
 }

@@ -36,6 +36,10 @@ public class ResumesServiceImpl extends ServiceImpl<ResumesMapper, Resumes>
     @Resource
     private ResumesMapper resumesMapper;
 
+    @Resource
+    private FileUtils fileUtils;
+
+
     // TODO 后续加上用户关联
     // 上传文件
     @Override
@@ -47,7 +51,7 @@ public class ResumesServiceImpl extends ServiceImpl<ResumesMapper, Resumes>
 
         String fileName = file.getOriginalFilename();
         // 获取文件后缀名
-        String multipartFileExtension = FileUtils.getMultipartFileExtension(file);
+        String multipartFileExtension = fileUtils.getMultipartFileExtension(file);
         // 确定最终使用的文件名
         String finalFilename = filename != null ? filename + multipartFileExtension : fileName;
 

@@ -1,9 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.service.AiCodeHelperService;
-import com.example.demo.service.ResumesService;
+import com.example.demo.utils.FileUtils;
 import jakarta.annotation.Resource;
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
@@ -11,17 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 class DemoApplicationTests {
 
 
-
     @Resource
-    private ResumesService resumesService;
+    private FileUtils fileUtils;
 
-    @Resource
-    private AiCodeHelperService aiCodeHelperService;
-
-
-    @Test
-    void testChats(){
-
-    }
+    // PDF解析
 
 }

@@ -15,6 +15,33 @@
     <version>1.0.0</version>
     <description>AI简历项目</description>
 
+    <repositories>
+        <!-- 优先使用Maven中央仓库 -->
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2/</url>
+            <!-- 设为true表示优先使用该仓库 -->
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <!-- 保留阿里云仓库作为备用 -->
+        <repository>
+            <id>aliyun</id>
+            <url>https://maven.aliyun.com/repository/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <!-- ==================== 全局属性配置 ==================== -->
     <properties>
         <java.version>21</java.version>
@@ -167,34 +194,28 @@
         </dependency>
 
         <!-- #################### AI相关（仅保留必要依赖，排除冲突） #################### -->
-        <!-- langchain4j 核心启动器（排除冲突的扫描模块） -->
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-spring-boot-starter</artifactId>
             <version>${langchain4j.version}</version>
-            <exclusions>
-                <!-- 关键：排除导致 MyBatis Mapper 冲突的模块 -->
-                <exclusion>
-                    <groupId>dev.langchain4j</groupId>
-                    <artifactId>langchain4j-service-spring</artifactId>
-                </exclusion>
-            </exclusions>
-
         </dependency>
-        <!-- 2. 补充 Reactor 核心库（Flux/Mono 类型的依赖，必须添加） -->
         <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-core</artifactId>
-            <version>3.6.0</version> <!-- 版本可与 Spring Boot 自动管理的版本对齐，避免冲突 -->
+            <version>3.6.0</version>
         </dependency>
 
-        <!-- 3. Spring WebFlux（若用响应式接口，需确保引入） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-            <!-- 无需指定版本，Spring Boot 父工程会自动管理 -->
         </dependency>
-        <!-- 阿里云 DashScope 集成（若需调用阿里大模型，保留；否则可删除） -->
+
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-reactor</artifactId>
+            <version>1.1.0-beta7</version>
+        </dependency>
+
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-community-dashscope-spring-boot-starter</artifactId>
@@ -204,8 +225,8 @@
         <!-- #################### PDF处理（字体支持） #################### -->
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
-            <artifactId>fontbox</artifactId>
-            <version>2.0.32</version>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.24</version>
         </dependency>
     </dependencies>
 
