@@ -69,8 +69,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="Resumes" />
-                  <option name="tableName" value="resumes" />
+                  <option name="className" value="ResumesAnalysis" />
+                  <option name="tableName" value="resumes_analysis" />
                 </TableUIInfo>
               </list>
             </option>

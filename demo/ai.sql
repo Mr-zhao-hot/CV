@@ -36,4 +36,23 @@ CREATE TABLE `resumes` (
                            `file_hash` varchar(64) DEFAULT NULL COMMENT '简历文件的哈希值（用于文件唯一性校验）' ,
                            PRIMARY KEY (`id`),
                            UNIQUE KEY `file_hash` (`file_hash`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='简历存储表'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='简历存储表';
+
+-- 简历解析结果
+CREATE TABLE `resumesCvResult` (
+                                   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '简历记录唯一标识',
+                                   `user_id` bigint NOT NULL COMMENT '关联的用户ID，对应users表的id字段',
+                                   `text` text NOT NULL COMMENT '分析结果对话',
+                                   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+                                   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '记录最后更新时间',
+                                   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='简历解析结果';
+
+-- 简历分析
+CREATE TABLE `resumes_analysis` (
+                             `id` bigint NOT NULL AUTO_INCREMENT COMMENT '简历记录唯一标识',
+                             `user_id` bigint NOT NULL COMMENT '关联的用户ID，对应users表的id字段',
+                             `text_analysis` text NOT NULL COMMENT '分析结果对话',
+                             `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+                             PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='简历解析结果';

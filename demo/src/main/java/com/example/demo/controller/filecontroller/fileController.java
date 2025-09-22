@@ -23,7 +23,7 @@ public class fileController {
     private ResumesService resumesService;
 
     // 上传简历
-    @PostMapping("/upload")
+    @PostMapping("/resumes/upload")
     public JsonOk<Resumes> upload(MultipartFile file , String filename) throws IOException {
         Resumes res = resumesService.upload(file,filename);
         return JsonOk.success(res);

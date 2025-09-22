@@ -12,6 +12,9 @@ public interface AiCodeHelperService {
     @SystemMessage("根据简历的内容帮我分析简历")
     Flux<String> chatMessage(@MemoryId Long id , @UserMessage  String message);
 
+    @SystemMessage("根据简历的内容帮我分析简历")
+    String chats(@MemoryId Long id , @UserMessage  String message);
+
 
     // 改为返回结构化的Resume对象
     @SystemMessage("""

@@ -25,8 +25,10 @@ public class FileUtils {
 
 
     // 解析PDF的实际文本内容（而非元数据标题）
-    public String pdfFile(File file) throws IOException {
-        try (PDDocument document = PDDocument.load(file)) {
+    public String pdfFile(String file) throws IOException {
+        String realFilePath = file.trim().replaceAll("^\"|\"$", "");
+        File file1 = new File(realFilePath);
+        try (PDDocument document = PDDocument.load(file1)) {
             if (document.isEncrypted()) {
                 throw new IOException("PDF文档已加密，无法提取内容");
             }

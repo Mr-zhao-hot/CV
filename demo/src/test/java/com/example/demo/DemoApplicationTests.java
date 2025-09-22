@@ -1,7 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.utils.FileUtils;
-import jakarta.annotation.Resource;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
@@ -9,9 +8,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 class DemoApplicationTests {
 
 
-    @Resource
-    private FileUtils fileUtils;
 
-    // PDF解析
 
+
+    @Test
+    void contextLoads() {
+        String url = "C:\\Users\\Administrator\\Desktop\\AI简历\\demo\\2024年全新计算机科学与技术专业实习简历模版.pdf";
+
+
+    }
 }
