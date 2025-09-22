@@ -7,36 +7,37 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.3</version>  <!-- Spring Boot 3.1.x 稳定版 -->
+        <version>3.5.3</version>
     </parent>
 
     <groupId>com.example</groupId>
     <artifactId>CV</artifactId>
     <version>1.0.0</version>
-    <description>Maven</description>
+    <description>AI简历项目</description>
 
     <!-- ==================== 全局属性配置 ==================== -->
     <properties>
-        <!-- 环境配置 -->
-        <java.version>17</java.version>                       <!-- JDK 17+ 必需 -->
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- 第三方依赖版本管理 -->
-        <druid.version>1.2.18</druid.version>               <!-- 阿里Druid连接池 -->
-        <mybatis-plus.version>3.5.5</mybatis-plus.version>   <!-- MyBatis-Plus -->
-        <jjwt.version>0.12.3</jjwt.version>                  <!-- JWT库 -->
-        <fastjson.version>2.0.39</fastjson.version>         <!-- Fastjson2 -->
-        <jsqlparser.version>4.6</jsqlparser.version>         <!-- SQL解析器 -->
-        <pagehelper.version>1.4.6</pagehelper.version>       <!-- PageHelper -->
+        <druid.version>1.2.18</druid.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <jjwt.version>0.12.3</jjwt.version>
+        <fastjson.version>2.0.39</fastjson.version>
+        <jsqlparser.version>4.6</jsqlparser.version>
+        <pagehelper.version>1.4.6</pagehelper.version>
+        <!-- 统一 langchain4j 版本（避免混乱） -->
+        <langchain4j.version>1.1.0-beta7</langchain4j.version>
     </properties>
 
-    <!-- ==================== 依赖配置 ==================== -->
+    <!-- ==================== 依赖配置（已清理重复项） ==================== -->
     <dependencies>
         <!-- #################### Spring官方Starter #################### -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>  <!-- Web支持（含MVC/Tomcat） -->
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -45,57 +46,42 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>  <!-- AOP支持 -->
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>  <!-- 参数校验 -->
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>  &lt;!&ndash; Security 6 &ndash;&gt;-->
-<!--        </dependency>-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>  <!-- Redis集成 -->
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>  <!-- 监控端点 -->
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <!-- #################### 数据库相关 #################### -->
-        <!-- Druid连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.version}</version>
         </dependency>
-        <!-- MyBatis-Plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus.version}</version>
-            <exclusions>
-                <exclusion>  <!-- 排除旧版SQL解析器（避免冲突） -->
-                    <groupId>com.github.jsqlparser</groupId>
-                    <artifactId>jsqlparser</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <version>3.5.11</version>
         </dependency>
-        <!-- MySQL驱动 -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- PageHelper -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>${pagehelper.version}</version>
         </dependency>
-        <!-- 统一SQL解析器版本 -->
         <dependency>
             <groupId>com.github.jsqlparser</groupId>
             <artifactId>jsqlparser</artifactId>
@@ -103,7 +89,6 @@
         </dependency>
 
         <!-- #################### 安全工具 #################### -->
-        <!-- JWT支持 -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -123,20 +108,17 @@
         </dependency>
 
         <!-- #################### 开发工具 #################### -->
-        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
-        <!-- Fastjson2 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
-        <!-- 开发热部署 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -155,7 +137,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- 明确添加JUnit 5 API依赖（确保@Test等注解可用） -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -167,6 +148,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- #################### 其他工具 #################### -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
@@ -183,31 +165,47 @@
             <artifactId>aliyun-java-sdk-core</artifactId>
             <version>4.6.0</version>
         </dependency>
-        <dependency>
-            <groupId>dev.langchain4j</groupId>
-            <artifactId>langchain4j-community-dashscope-spring-boot-starter</artifactId>
-            <version>1.1.0-beta7</version>
-        </dependency>
-        <dependency>
-            <groupId>dev.langchain4j</groupId>
-            <artifactId>langchain4j</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>dev.langchain4j</groupId>
-            <artifactId>langchain4j-reactor</artifactId>
-            <version>1.1.0-beta7</version>
-        </dependency>
+
+        <!-- #################### AI相关（仅保留必要依赖，排除冲突） #################### -->
+        <!-- langchain4j 核心启动器（排除冲突的扫描模块） -->
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-spring-boot-starter</artifactId>
-            <version>1.1.0-beta7</version>
+            <version>${langchain4j.version}</version>
+            <exclusions>
+                <!-- 关键：排除导致 MyBatis Mapper 冲突的模块 -->
+                <exclusion>
+                    <groupId>dev.langchain4j</groupId>
+                    <artifactId>langchain4j-service-spring</artifactId>
+                </exclusion>
+            </exclusions>
+
         </dependency>
-        <!-- 处理字体相关功能（可选，但建议添加） -->
+        <!-- 2. 补充 Reactor 核心库（Flux/Mono 类型的依赖，必须添加） -->
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+            <version>3.6.0</version> <!-- 版本可与 Spring Boot 自动管理的版本对齐，避免冲突 -->
+        </dependency>
+
+        <!-- 3. Spring WebFlux（若用响应式接口，需确保引入） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <!-- 无需指定版本，Spring Boot 父工程会自动管理 -->
+        </dependency>
+        <!-- 阿里云 DashScope 集成（若需调用阿里大模型，保留；否则可删除） -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-community-dashscope-spring-boot-starter</artifactId>
+            <version>${langchain4j.version}</version>
+        </dependency>
+
+        <!-- #################### PDF处理（字体支持） #################### -->
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>fontbox</artifactId>
-            <version>2.0.32</version> <!-- 版本需与 pdfbox 一致 -->
+            <version>2.0.32</version>
         </dependency>
     </dependencies>
 
@@ -220,10 +218,11 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>21</source>
+                    <target>21</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <parameters>true</parameters>
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
             <!-- Spring Boot打包插件 -->
@@ -232,7 +231,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>  <!-- 打包时排除Lombok -->
+                        <exclude>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </exclude>
@@ -250,18 +249,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <!-- ==================== 依赖管理 ==================== -->
-    <!--    <dependencyManagement>-->
-    <!--        <dependencies>-->
-    <!--            &lt;!&ndash; 确保所有Spring Cloud相关依赖使用相同版本 &ndash;&gt;-->
-    <!--            <dependency>-->
-    <!--                <groupId>org.springframework.cloud</groupId>-->
-    <!--                <artifactId>spring-cloud-dependencies</artifactId>-->
-    <!--                <version>2022.0.4</version>-->
-    <!--                <type>pom</type>-->
-    <!--                <scope>import</scope>-->
-    <!--            </dependency>-->
-    <!--        </dependencies>-->
-    <!--    </dependencyManagement>-->
 </project>

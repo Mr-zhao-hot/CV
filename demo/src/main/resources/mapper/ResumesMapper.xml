@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ResumesMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.model.persist.entity.Resumes">
+            <id property="id" column="id" />
+            <result property="userId" column="user_id" />
+            <result property="originalFilename" column="original_filename" />
+            <result property="filePath" column="file_path" />
+            <result property="fileSize" column="file_size" />
+            <result property="fileHash" column="file_hash" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,original_filename,file_path,file_size,file_hash
+    </sql>
+</mapper>
