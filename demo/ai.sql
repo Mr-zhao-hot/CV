@@ -56,3 +56,14 @@ CREATE TABLE `resumes_analysis` (
                              `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
                              PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='简历解析结果';
+
+
+CREATE TABLE `interview` (
+                             `id` bigint NOT NULL AUTO_INCREMENT COMMENT '简历记录唯一标识',
+                             `user_id` bigint NOT NULL COMMENT '关联的用户ID，对应users表的id字段',
+                             `user_message` text NOT NULL COMMENT '用户输入的对话',
+                             `interview_message` text NOT NULL COMMENT '面试官的回复',
+                             `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+                             PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT '面试对话记录';
+

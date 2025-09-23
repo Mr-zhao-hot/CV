@@ -5,6 +5,7 @@ import com.example.demo.model.persist.vo.ResumesAnalysisVo;
 import com.example.demo.model.persist.vo.ResumesCvResultVo;
 import com.example.demo.result.JsonOk;
 import com.example.demo.service.AiCodeHelperService;
+import com.example.demo.service.InterviewService;
 import com.example.demo.service.impl.ResmesCvImpl;
 import com.example.demo.service.impl.ResumesAnalysisServiceImpl;
 import com.example.demo.utils.FileUtils;
@@ -35,6 +36,10 @@ public class AiCvController {
 
     @Resource
     private ResumesAnalysisServiceImpl resumesAnalysisService;
+
+
+    @Resource
+    private InterviewService interviewService;
 
 
     @Resource
@@ -87,6 +92,25 @@ public class AiCvController {
         return JsonOk.success(resumesAnalysisVo);
     }
 
+    // 获取分析结果
+    @PostMapping("/analysis/{id}")
+    public JsonOk<ResumesAnalysisVo> getAnalysisResult(@PathVariable Long id) {
+        ResumesAnalysisVo resumesAnalysisVo = resumesAnalysisService.selectIdBytext(id);
+        return JsonOk.success(resumesAnalysisVo);
+    }
 
+    // 进行面试
+    @PostMapping("analysis/{id}/questions")
+    public JsonOk<String> interview(@PathVariable Long id, @RequestBody String message) {
+        String stringFlux = aiCodeHelperService.chat(id, message);
+        return JsonOk.success(stringFlux);
+    }
+
+    // 扩展面试
+    @PostMapping("analysis/{id}/questions/expand")
+    public JsonOk<String> interviewExpand(@PathVariable Long id, @RequestBody String message) {
+        String stringFlux = aiCodeHelperService.chat(id, message);
+        return JsonOk.success(stringFlux);
+    }
 
 }

@@ -68,6 +68,16 @@ public class ResumesAnalysisServiceImpl extends ServiceImpl<ResumesAnalysisMappe
         BeanUtils.copyProperties(resumesAnalysis1, resumesAnalysisVo);
         return resumesAnalysisVo;
     }
+
+    // 查询返回结果
+    @Override
+    public ResumesAnalysisVo selectIdBytext(Long id) {
+        ResumesAnalysis resumesAnalysis = resumesAnalysisMapper.selectById(id);
+        ResumesAnalysisVo resumesAnalysisVo = new ResumesAnalysisVo();
+        BeanUtils.copyProperties(resumesAnalysis, resumesAnalysisVo);
+        resumesAnalysisVo.setId(resumesAnalysis.getId());
+        return resumesAnalysisVo;
+    }
 }
 
 

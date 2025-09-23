@@ -50,4 +50,9 @@ public interface AiCodeHelperService {
 
     // 添加专门的简历解析方法
     ResumesData parseResume(String pdfContent);
+
+
+    // 面试题
+    @SystemMessage("")
+    Flux<String> chatInterview(@MemoryId Long id , @UserMessage  String message);
 }

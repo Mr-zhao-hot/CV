@@ -14,4 +14,6 @@ import java.io.IOException;
 public interface ResumesAnalysisService extends IService<ResumesAnalysis> {
 
     ResumesAnalysisVo selectIdBy(Long id, String file) throws IOException;
+
+    ResumesAnalysisVo selectIdBytext(Long id);
 }

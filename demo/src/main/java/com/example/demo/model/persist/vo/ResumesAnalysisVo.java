@@ -16,6 +16,7 @@ public class ResumesAnalysisVo implements Serializable {
     private Long id;
 
 
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
